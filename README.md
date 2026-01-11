@@ -31,7 +31,7 @@ The fuzzer successfully identified the logic bomb (`data.Payload.Length == 42`) 
 
 Here is the actual Proof of Concept (PoC) it generated automatically:
 
-![PoC JSON]<img width="902" height="93" alt="image" src="https://github.com/user-attachments/assets/dc1cefd5-e95b-4815-9290-f6103ab8a955" />
+<img width="902" height="93" alt="image" src="https://github.com/user-attachments/assets/dc1cefd5-e95b-4815-9290-f6103ab8a955" />
 
 
 It flagged the crash as "Unique" by hashing the stack trace, so I didn't get spammed with 1,000 logs for the same bug.
