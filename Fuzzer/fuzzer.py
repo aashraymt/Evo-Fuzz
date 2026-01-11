@@ -57,11 +57,16 @@ def crossover(parent1, parent2):
 
 def mutate(payload):
     """
-    Applies Dictionary Injection, Bit-flipping, or Expansion.
+    Applies Dictionary Injection, Bit-flipping, Expansion, OR Replacement.
     """
-    strategy = random.choice(['bitflip', 'insert_dict', 'expand', 'shrink'])
+    # Added 'replace' to the list of choices
+    strategy = random.choice(['bitflip', 'insert_dict', 'expand', 'shrink', 'replace'])
     
-    if strategy == 'insert_dict':
+    if strategy == 'replace':
+        # NEW STRATEGY: Wipe the payload and replace with a known bad value
+        return random.choice(BAD_CHARS)
+        
+    elif strategy == 'insert_dict':
         # Inject a nasty known-bad string
         token = random.choice(BAD_CHARS)
         pos = random.randint(0, len(payload))
@@ -82,7 +87,6 @@ def mutate(payload):
         return payload[:-1]
     
     return payload
-
 # ==========================================
 # EXECUTION ENGINE
 # ==========================================
@@ -103,7 +107,7 @@ def save_crash(payload, error_msg, crash_id):
     print(f"    [Disk] PoC saved to {filename}")
 
 # ==========================================
-# MAIN EVOLUTIONARY LOOP (The OODA Loop)
+# MAIN LOOP
 # ==========================================
 def start_hunting():
     banner()
